@@ -68,7 +68,7 @@ def mejor_cliente():
     conn.close()
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     ventas_por_cliente()
     clientes_riesgosos()
     mejor_cliente()
