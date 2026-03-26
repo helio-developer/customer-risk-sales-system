@@ -1,3 +1,4 @@
+
 REPORTE DE ANALISIS
 ====================
 
@@ -6,3 +7,5 @@ Mejor cliente: Laura ($3,200,000)
 Clientes riesgosos:
 - Carlos (Deuda: 900000.0)
 - Pedro (Deuda: 700000.0)
+=======
+
