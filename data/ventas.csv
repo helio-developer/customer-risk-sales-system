@@ -1,6 +1,7 @@
-id,nombre,ingresos,deudas,score
-1,Juan,2500000,800000,650
-2,Ana,4000000,500000,720
-3,Carlos,1800000,900000,600
-4,Laura,5000000,1000000,750
-5,Pedro,1200000,700000,580
+id,cliente_id,producto,categoria,monto
+1,1,Mouse,Accesorios,45000
+2,2,Laptop,Computo,3200000
+3,3,Teclado,Accesorios,85000
+4,1,Monitor,Computo,900000
+5,4,Laptop,Computo,3200000
+6,5,Mouse,Accesorios,45000
