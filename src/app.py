@@ -25,4 +25,4 @@ st.dataframe(df)
 st.subheader("Gráfico de Ventas")
 st.bar_chart(df.set_index("nombre"))
 
-streamlit run src/app.py
+
