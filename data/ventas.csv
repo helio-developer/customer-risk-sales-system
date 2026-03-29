@@ -1,0 +1,7 @@
+id,cliente_id,producto,categoria,monto
+1,1,Mouse,Accesorios,45000
+2,2,Laptop,Computo,3200000
+3,3,Teclado,Accesorios,85000
+4,1,Monitor,Computo,900000
+5,4,Laptop,Computo,3200000
+6,5,Mouse,Accesorios,45000
