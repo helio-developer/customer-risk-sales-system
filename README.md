@@ -6,7 +6,6 @@ Aplicación web desarrollada con Python para el análisis de clientes y ventas, 
 
 ## 🚀 Demo en vivo
 
-👉 https://TU-APP.streamlit.app
 
 ---
 
