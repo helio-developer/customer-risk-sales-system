@@ -39,9 +39,9 @@ col4.metric("📈 Promedio", f"${promedio:,.0f}")
 
 st.divider()
 
+
 # Tabla
 st.subheader("📋 Datos de Ventas")
-st.dataframe(df_filtrado, width='stretch')
 
 # Filtro cliente
 clientes = df["nombre"].unique()
@@ -52,6 +52,9 @@ cliente_seleccionado = st.selectbox(
 )
 
 df_filtrado = df[df["nombre"] == cliente_seleccionado]
+
+st.dataframe(df_filtrado, width='stretch')
+
 
 # Gráfico
 st.subheader("📈 Ventas por Cliente")
