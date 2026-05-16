@@ -1,13 +1,18 @@
 import streamlit as st
 import pandas as pd
 import sqlite3
-import matplotlib.pyplot as plt
+import plotly.express as px
 
 # Configuración página
 st.set_page_config(
+    
     page_title="Customer Risk & Sales Dashboard",
     layout="wide"
 )
+
+# Sidebar
+st.sidebar.title("📌 Panel de Control")
+st.sidebar.markdown("Dashboard de análisis de clientes y ventas")
 
 # Conexión DB
 conn = sqlite3.connect("business.db")
@@ -59,11 +64,18 @@ st.dataframe(df_filtrado, width='stretch')
 # Gráfico
 st.subheader("📈 Ventas por Cliente")
 
-ventas_cliente = df_filtrado.groupby("nombre")["monto"].sum()
+ventas_cliente = (
+    df_filtrado.groupby("nombre")["monto"]
+    .sum()
+    .reset_index()
+)
 
-fig, ax = plt.subplots(figsize=(8,4))
-ventas_cliente.plot(kind="bar", ax=ax)
+fig = px.bar(
+    ventas_cliente,
+    x="nombre",
+    y="monto",
+    text_auto=True,
+    title="Ventas Totales"
+)
 
-plt.xticks(rotation=0)
-
-st.pyplot(fig)
+st.plotly_chart(fig, width='stretch')
