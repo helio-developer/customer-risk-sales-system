@@ -1,28 +1,56 @@
 import streamlit as st
-import sqlite3
 import pandas as pd
+import sqlite3
+import matplotlib.pyplot as plt
 
-st.title("📊 Dashboard de Clientes y Ventas")
+# Configuración página
+st.set_page_config(
+    page_title="Customer Risk & Sales Dashboard",
+    layout="wide"
+)
 
-# Conectar a la base de datos
+# Conexión DB
 conn = sqlite3.connect("business.db")
 
-# Query
-query = """
-SELECT c.nombre, SUM(v.monto) as total
-FROM clientes c
-JOIN ventas v ON c.id = v.cliente_id
-GROUP BY c.nombre
-"""
+# Leer datos
+df = pd.read_sql_query("""
+SELECT clientes.nombre, ventas.producto, ventas.monto
+FROM ventas
+JOIN clientes
+ON ventas.cliente_id = clientes.id
+""", conn)
 
-df = pd.read_sql_query(query, conn)
+# KPIs
+ventas_totales = df["monto"].sum()
+clientes_totales = df["nombre"].nunique()
+mejor_cliente = df.groupby("nombre")["monto"].sum().idxmax()
+promedio = df["monto"].mean()
 
-# Mostrar tabla
-st.subheader("Ventas por Cliente")
-st.dataframe(df)
+# Título
+st.title("📊 Customer Risk & Sales Dashboard")
+
+# KPIs visuales
+col1, col2, col3, col4 = st.columns(4)
+
+col1.metric("💰 Ventas Totales", f"${ventas_totales:,.0f}")
+col2.metric("👥 Clientes", clientes_totales)
+col3.metric("🏆 Mejor Cliente", mejor_cliente)
+col4.metric("📈 Promedio", f"${promedio:,.0f}")
+
+st.divider()
+
+# Tabla
+st.subheader("📋 Datos de Ventas")
+st.dataframe(df, use_container_width=True)
 
 # Gráfico
-st.subheader("Gráfico de Ventas")
-st.bar_chart(df.set_index("nombre"))
+st.subheader("📈 Ventas por Cliente")
 
+ventas_cliente = df.groupby("nombre")["monto"].sum()
 
+fig, ax = plt.subplots(figsize=(8,4))
+ventas_cliente.plot(kind="bar", ax=ax)
+
+plt.xticks(rotation=0)
+
+st.pyplot(fig)
