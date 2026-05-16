@@ -79,3 +79,15 @@ fig = px.bar(
 )
 
 st.plotly_chart(fig, width='stretch')
+
+# Pie Chart
+st.subheader("🥧 Distribución de Ventas")
+
+fig_pie = px.pie(
+    df,
+    names="nombre",
+    values="monto",
+    title="Participación de Clientes"
+)
+
+st.plotly_chart(fig_pie, width='stretch')
