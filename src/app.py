@@ -41,12 +41,22 @@ st.divider()
 
 # Tabla
 st.subheader("📋 Datos de Ventas")
-st.dataframe(df, use_container_width=True)
+st.dataframe(df_filtrado, width='stretch')
+
+# Filtro cliente
+clientes = df["nombre"].unique()
+
+cliente_seleccionado = st.selectbox(
+    "🔎 Selecciona un cliente",
+    clientes
+)
+
+df_filtrado = df[df["nombre"] == cliente_seleccionado]
 
 # Gráfico
 st.subheader("📈 Ventas por Cliente")
 
-ventas_cliente = df.groupby("nombre")["monto"].sum()
+ventas_cliente = df_filtrado.groupby("nombre")["monto"].sum()
 
 fig, ax = plt.subplots(figsize=(8,4))
 ventas_cliente.plot(kind="bar", ax=ax)
