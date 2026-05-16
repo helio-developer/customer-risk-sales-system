@@ -5,8 +5,7 @@ Aplicación web desarrollada con Python para el análisis de clientes y ventas, 
 ---
 
 ## 🚀 Demo en vivo
-👉 https://customer-risk-sales-system-uhhgnhuhmectycwgbkstcb.streamlit.app/
-
+https://customer-risk-sales-system-uhhghuhmectycwgbkstcb.streamlit.app/
 
 ---
 
