@@ -14,6 +14,8 @@ st.set_page_config(
 st.sidebar.title("📌 Panel de Control")
 st.sidebar.markdown("Dashboard de análisis de clientes y ventas")
 
+
+
 # Conexión DB
 conn = sqlite3.connect("business.db")
 
@@ -24,6 +26,17 @@ FROM ventas
 JOIN clientes
 ON ventas.cliente_id = clientes.id
 """, conn)
+
+# Filtro de ventas
+min_venta = int(df["monto"].min())
+max_venta = int(df["monto"].max())
+
+rango_ventas = st.sidebar.slider(
+    "💰 Rango de Ventas",
+    min_venta,
+    max_venta,
+    (min_venta, max_venta)
+)
 
 # KPIs
 ventas_totales = df["monto"].sum()
@@ -56,7 +69,11 @@ cliente_seleccionado = st.selectbox(
     clientes
 )
 
-df_filtrado = df[df["nombre"] == cliente_seleccionado]
+df_filtrado = df[
+    (df["nombre"] == cliente_seleccionado) &
+    (df["monto"] >= rango_ventas[0]) &
+    (df["monto"] <= rango_ventas[1])
+]
 
 st.dataframe(df_filtrado, width='stretch')
 
